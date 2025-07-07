@@ -177,6 +177,41 @@ class BST {
         return d1 + d2;
     }
 
+    public void topView() {
+        if(root == null) return;
+
+        class Pair{
+            Node node;
+            int hd;
+
+            Pair(Node n, int h){
+                node = n;
+                hd = h;
+            }
+        }
+
+        Map<Integer,Integer> tr = new TreeMap<>();
+        Queue<Pair> q = new LinkedList<>();
+        q.add(new Pair(root, 0));
+        while(!q.isEmpty()){
+            Pair current = q.poll();
+            Node newNode = current.node;
+            int hd = current.hd;
+
+            if(!tr.containsKey(hd)){
+                tr.put(hd, newNode.data);
+            }
+
+            if(newNode.left != null) q.add(new Pair(newNode.left, hd-1));
+            if(newNode.right != null) q.add(new Pair(newNode.right, hd+1));
+        }
+        System.out.print("Top view: ");
+        for(int x:tr.values()){
+            System.out.print(x + " ");
+        }
+        System.out.println();
+    }
+
     public void bottomView() {
         if (root == null) return;
 
@@ -205,6 +240,34 @@ class BST {
             System.out.print(val + " ");
         }
         System.out.println();
+    }
+
+    public void rightView(){
+        int level = 0;
+        List<Integer> values = new ArrayList<>();
+        rightView(root,values,level);
+        System.out.println("Right View of BST: " + values);
+    }
+
+    public void rightView(Node root, List<Integer> a, int level){
+        if(root == null) return;
+        if(a.size() == level) a.add(root.data);
+        rightView(root.right,a,level+1);
+        rightView(root.left,a,level+1);
+    }
+
+    public void leftView(){
+        int level = 0;
+        List<Integer> values = new ArrayList<>();
+        leftView(root,values,level);
+        System.out.println("Left View of BST: " + values);
+    }
+
+    public void leftView(Node root, List<Integer> a, int level){
+        if(root == null) return;
+        if(a.size() == level) a.add(root.data);
+        leftView(root.left,a,level+1);
+        leftView(root.right,a,level+1);
     }
 
 
@@ -242,11 +305,11 @@ public class MainFile {
         System.out.println("LevelOrder Traversal: ");
         bst.levelOrder();
 
-        // Deletion
-        System.out.println("Deletion of a Node: ");
-        bst.delete(55);
-        bst.delete(30);
-        bst.inOrder();
+//        // Deletion
+//        System.out.println("Deletion of a Node: ");
+//        bst.delete(55);
+//        bst.delete(30);
+//        bst.inOrder();
 
         // Search
         System.out.println("Search Node: ");
@@ -272,5 +335,14 @@ public class MainFile {
 
         // Bottom View
         bst.bottomView();
+
+        // Top View
+        bst.topView();
+
+        // Right View
+        bst.rightView();
+
+        // Left View
+        bst.leftView();
     }
 }
