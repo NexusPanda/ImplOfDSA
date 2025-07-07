@@ -130,6 +130,21 @@ class BST {
         else return depth(root.left, target, d+1);
     }
 
+    private int level = 0;
+
+    public int diameter() {
+        diameter(root);
+        return level;
+    }
+
+    public int diameter(Node node){
+        if(node == null) return 0;
+        int left = diameter(node.left);
+        int right = diameter(node.right);
+        level = Math.max(level,(left+right));
+        return Math.max(left,right)+1;
+    }
+
     public class Node {
         int data;
         Node left, right;
@@ -182,8 +197,7 @@ public class MainFile {
         System.out.println("Depth of the Tree: " + bst.depth(50));
 
         // Diameter
-        System.out.println("Diameter of the Tree: ");
-        
+        System.out.println("Diameter of the Tree: " + bst.diameter());
 
     }
 }
