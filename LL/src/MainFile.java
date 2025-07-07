@@ -177,6 +177,37 @@ class BST {
         return d1 + d2;
     }
 
+    public void bottomView() {
+        if (root == null) return;
+
+        class Pair {
+            Node node;
+            int hd;
+
+            Pair(Node n, int h) {
+                node = n;
+                hd = h;
+            }
+        }
+        Map<Integer, Integer> hdMap = new TreeMap<>(); // HD → node.data
+        Queue<Pair> queue = new LinkedList<>();
+        queue.add(new Pair(root, 0));
+        while (!queue.isEmpty()) {
+            Pair current = queue.poll();
+            Node currNode = current.node;
+            int hd = current.hd;
+            hdMap.put(hd, currNode.data);
+            if (currNode.left != null) queue.add(new Pair(currNode.left, hd - 1));
+            if (currNode.right != null) queue.add(new Pair(currNode.right, hd + 1));
+        }
+        System.out.print("Bottom View: ");
+        for (int val : hdMap.values()) {
+            System.out.print(val + " ");
+        }
+        System.out.println();
+    }
+
+
     public class Node {
         int data;
         Node left, right;
@@ -239,5 +270,7 @@ public class MainFile {
         // Distance Between 2 Nodes
         System.out.println("Distance between 20 and 50: " + bst.distanceBetweenNodes(20, 50));
 
+        // Bottom View
+        bst.bottomView();
     }
 }
