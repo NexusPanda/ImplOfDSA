@@ -231,12 +231,12 @@ public class MainFile {
         // Diameter
         System.out.println("Diameter of the Tree: " + bst.diameter());
 
-        //LCA
+        // LCA
         BST.Node lcaNode = bst.findLCA(10, 50);
         if (lcaNode != null) System.out.println("LCA of 10 and 50 is: " + lcaNode.data);
         else System.out.println("LCA not found");
 
-        //Distance Between 2 Nodes
+        // Distance Between 2 Nodes
         System.out.println("Distance between 20 and 50: " + bst.distanceBetweenNodes(20, 50));
 
     }
