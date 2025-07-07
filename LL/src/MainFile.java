@@ -151,19 +151,14 @@ class BST {
 
     public Node findLCA(Node node, int n1, int n2) {
         if (node == null) return null;
-
-        if (n1 < node.data && n2 < node.data)
-            return findLCA(node.left, n1, n2);
-        else if (n1 > node.data && n2 > node.data)
-            return findLCA(node.right, n1, n2);
-        else
-            return node;
+        if (n1 < node.data && n2 < node.data) return findLCA(node.left, n1, n2);
+        else if (n1 > node.data && n2 > node.data) return findLCA(node.right, n1, n2);
+        else return node;
     }
 
     private int distanceFromNode(Node root, int val) {
         if (root == null) return -1;
         if (root.data == val) return 0;
-
         if (val < root.data) {
             int left = distanceFromNode(root.left, val);
             return (left == -1) ? -1 : 1 + left;
@@ -176,12 +171,9 @@ class BST {
     public int distanceBetweenNodes(int n1, int n2) {
         Node lca = findLCA(root, n1, n2);
         if (lca == null) return -1;
-
         int d1 = distanceFromNode(lca, n1);
         int d2 = distanceFromNode(lca, n2);
-
-        if (d1 == -1 || d2 == -1) return -1; // one of the nodes not found
-
+        if (d1 == -1 || d2 == -1) return -1;
         return d1 + d2;
     }
 
@@ -240,12 +232,12 @@ public class MainFile {
         System.out.println("Diameter of the Tree: " + bst.diameter());
 
         //LCA
-        BST.Node lcaNode = bst.findLCA(10, 55);
-        if (lcaNode != null) System.out.println("LCA of 10 and 55 is: " + lcaNode.data);
+        BST.Node lcaNode = bst.findLCA(10, 50);
+        if (lcaNode != null) System.out.println("LCA of 10 and 50 is: " + lcaNode.data);
         else System.out.println("LCA not found");
 
         //Distance Between 2 Nodes
-        System.out.println("Distance between 30 and 50: " + bst.distanceBetweenNodes(30, 50));
+        System.out.println("Distance between 20 and 50: " + bst.distanceBetweenNodes(20, 50));
 
     }
 }
