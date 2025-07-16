@@ -156,23 +156,11 @@ class BST {
         else return node;
     }
 
-    private int distanceFromNode(Node root, int val) {
-        if (root == null) return -1;
-        if (root.data == val) return 0;
-        if (val < root.data) {
-            int left = distanceFromNode(root.left, val);
-            return (left == -1) ? -1 : 1 + left;
-        } else {
-            int right = distanceFromNode(root.right, val);
-            return (right == -1) ? -1 : 1 + right;
-        }
-    }
-
     public int distanceBetweenNodes(int n1, int n2) {
         Node lca = findLCA(root, n1, n2);
         if (lca == null) return -1;
-        int d1 = distanceFromNode(lca, n1);
-        int d2 = distanceFromNode(lca, n2);
+        int d1 = depth(lca, n1, 0);
+        int d2 = depth(lca, n2, 0);
         if (d1 == -1 || d2 == -1) return -1;
         return d1 + d2;
     }
