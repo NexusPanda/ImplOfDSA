@@ -1,3 +1,5 @@
+package Graph;
+
 public class DisjointSet {
     int[] parent;
     int[] rank;
